@@ -10,10 +10,12 @@ export class ThemovieService {
   http=inject(HttpClient)
   constructor() { }
 
-  url = 'https://api.themoviedb.org/3/trending/movie/day?language=de-DE';
-  
+  urlTrending = 'https://api.themoviedb.org/3/trending/movie/day?language=de-DE';
+
+  urlSearch = 'https://api.themoviedb.org/3/search/movie?query=hacker&language=de-DE';
+
   getTrending(page: number):Observable<ThemovieResponse>{
-   return this.http.get<ThemovieResponse>(`${this.url}&page=${page}`)
+   return this.http.get<ThemovieResponse>(`${this.urlTrending}&page=${page}`)
   }
 
 }
