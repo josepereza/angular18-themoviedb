@@ -4,11 +4,12 @@ import { Result } from '../../interfaces/themovie-response';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import { PosterPipe } from '../../pipes/poster.pipe';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-tendencias',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule,PosterPipe], 
+  imports: [MatCardModule, MatButtonModule,PosterPipe,MatPaginatorModule], 
   templateUrl: './tendencias.component.html',
   styleUrl: './tendencias.component.css'
 })
@@ -18,11 +19,23 @@ export class TendenciasComponent implements OnInit {
 
   themovies=signal<Result[]>([])
   movies:Result[]=[]
-
+  currentPage = signal(1);
+  totalPages = signal(0);
+  totalItems = signal(0);
 ngOnInit(): void {
- this.themovieSevice.getTrending().subscribe(data=>{
-  this.movies=data.results;
-  this.themovies.set(data.results)
- })
+this.loadMovies()
+}
+handlePageEvent(event: PageEvent) {
+  this.currentPage.set(event.pageIndex + 1);
+  this.loadMovies();
+}
+
+loadMovies(){
+  this.themovieSevice.getTrending(this.currentPage()).subscribe(data=>{
+    this.movies=data.results;
+    this.themovies.set(data.results);
+    this.totalPages.set(data.total_pages);
+    this.totalItems.set(data.total_results);
+   })
 }
 }

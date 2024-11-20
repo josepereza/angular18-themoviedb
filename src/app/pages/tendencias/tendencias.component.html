@@ -11,7 +11,13 @@
 </ul>
 
 
-
+<mat-paginator
+  [length]="totalItems()"
+  [pageSize]="20"
+  [pageIndex]="currentPage() - 1"
+  (page)="handlePageEvent($event)"
+  aria-label="Select page">
+</mat-paginator>
 
 <div class="movie-grid">
 @for (item of themovies(); track $index) {

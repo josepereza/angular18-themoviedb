@@ -12,8 +12,8 @@ export class ThemovieService {
 
   url = 'https://api.themoviedb.org/3/trending/movie/day?language=de-DE';
   
-  getTrending():Observable<ThemovieResponse>{
-   return this.http.get<ThemovieResponse>(this.url)
+  getTrending(page: number):Observable<ThemovieResponse>{
+   return this.http.get<ThemovieResponse>(`${this.url}&page=${page}`)
   }
 
 }
