@@ -5,7 +5,7 @@ import { TendenciasComponent } from './pages/tendencias/tendencias.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [TendenciasComponent],
+  imports: [TendenciasComponent,RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
